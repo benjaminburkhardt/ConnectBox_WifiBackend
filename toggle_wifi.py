@@ -83,7 +83,7 @@ def switch_wifi():
 
 if __name__ == "__main__":
 
-    if len(sys.argv) >= 2 and False:
+    if len(sys.argv) >= 2:
         if str(sys.argv[1]) == "1":
             toggle_wifi(True)
         elif str(sys.argv[1]) == "0":
