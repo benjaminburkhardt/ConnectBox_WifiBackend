@@ -32,7 +32,7 @@ def toggle_wifi(enable_wifi):
         # DISABLE 2.4Ghz
         settings.radio_2g.bss_enable = 2
 
-    wifi.update_wifi_settings(settings)
+    wifi.update_wifi_settings(settings, False)
 
     wifi = WifiSettings(modem)
     settings = wifi.wifi_settings
