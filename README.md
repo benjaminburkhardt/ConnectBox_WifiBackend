@@ -7,6 +7,25 @@ Compal CH7465LG). It is implemented in **Python >= 3.7**.
 At the moment it *only* contains the functionality that I needed while I was investigating my
 device, but pull requests that improve the documentation or add features are welcome.
 
+Usage
+-------------------
+
+The file example.py contains an example about how to use this module.
+
+Development
+-------------------
+
+For development is recommended to use a venv.
+
+$ python3.6 -m venv .
+$ source bin/activate
+$ python3 setup.py develop
+
+
+
+
+
+
 About the hardware
 ------------------
 Compal does not provide information about the hardware. The modem has no FCC registration.
