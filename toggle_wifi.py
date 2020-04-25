@@ -50,9 +50,12 @@ def modem_setup(enable_wifi):
 
 if __name__ == "__main__":
 
-    if str(sys.argv[1]) == "1":
-        modem_setup(True)
-    elif str(sys.argv[1]) == "0":
-        modem_setup(False)
+    if len(sys.argv) >= 2:
+        if str(sys.argv[1]) == "1":
+            modem_setup(True)
+        elif str(sys.argv[1]) == "0":
+            modem_setup(False)
+        else:
+            print("Wrong parameter 0=disable 1=enable !!!")
     else:
-        print("Wrong parameter 0=disable 1=enable !!!")
+        print("Parameter missing !!!")
