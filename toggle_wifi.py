@@ -37,7 +37,7 @@ def toggle_wifi(enable_wifi):
     wifi = WifiSettings(modem)
     settings = wifi.wifi_settings
 
-    pprint.pprint(settings)
+    # pprint.pprint(settings)
     if enable_wifi and settings.radio_2g.bss_enable == 1:
         print("\nWIFI is now ON!")
     elif not enable_wifi and settings.radio_2g.bss_enable == 2:
