@@ -26,11 +26,22 @@ def toggle_wifi(enable_wifi):
     settings = wifi.wifi_settings
 
     if enable_wifi:
-        # ENABLE 2.4Ghz
-        settings.radio_2g.bss_enable = 1
-    else:
-        # DISABLE 2.4Ghz
-        settings.radio_2g.bss_enable = 2
+        if settings.radio_2g.bss_enable == 2:
+            # ENABLE 2.4Ghz
+            settings.radio_2g.bss_enable = 1
+        else:
+            print("WIFI was already ON")
+            modem.logout()
+            return
+
+    if not enable_wifi:
+        if settings.radio_2g.bss_enable == 1:
+            # DISABLE 2.4Ghz
+            settings.radio_2g.bss_enable = 2
+        else:
+            print("WIFI was already OFF")
+            modem.logout()
+            return
 
     wifi.update_wifi_settings(settings, False)
 
@@ -77,7 +88,6 @@ def switch_wifi():
         return "WIFI is now OFF!"
     else:
         return "ERROR! Something went wrong... :("
-
 
 
 
