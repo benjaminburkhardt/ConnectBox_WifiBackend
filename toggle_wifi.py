@@ -8,7 +8,6 @@ import argparse
 import os
 import pprint
 import sys
-import config
 
 from compal import (Compal, DHCPSettings, PortForwards, Proto,  # noqa
                     WifiSettings)
@@ -17,15 +16,15 @@ from compal import (Compal, DHCPSettings, PortForwards, Proto,  # noqa
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
-def toggle_wifi(enable_wifi):
-    modem = Compal(config.host, config.interface_passwd)
+def toggle_wifi(ip, password, enableWifi):
+    modem = Compal(ip, password)
     modem.login()
 
     # And/or change wifi settings
     wifi = WifiSettings(modem)
     settings = wifi.wifi_settings
 
-    if enable_wifi:
+    if enableWifi:
         if settings.radio_2g.bss_enable == 2:
             # ENABLE 2.4Ghz
             settings.radio_2g.bss_enable = 1
@@ -34,7 +33,7 @@ def toggle_wifi(enable_wifi):
             modem.logout()
             return
 
-    if not enable_wifi:
+    if not enableWifi:
         if settings.radio_2g.bss_enable == 1:
             # DISABLE 2.4Ghz
             settings.radio_2g.bss_enable = 2
@@ -49,9 +48,9 @@ def toggle_wifi(enable_wifi):
     settings = wifi.wifi_settings
 
     # pprint.pprint(settings)
-    if enable_wifi and settings.radio_2g.bss_enable == 1:
+    if enableWifi and settings.radio_2g.bss_enable == 1:
         print("\nWIFI is now ON!")
-    elif not enable_wifi and settings.radio_2g.bss_enable == 2:
+    elif not enableWifi and settings.radio_2g.bss_enable == 2:
         print("\nWIFI is now OFF!")
     else:
         print("\nERROR! Something went wrong... :(")
@@ -93,12 +92,14 @@ def switch_wifi():
 
 if __name__ == "__main__":
 
-    if len(sys.argv) >= 2:
-        if str(sys.argv[1]) == "1":
-            toggle_wifi(True)
-        elif str(sys.argv[1]) == "0":
-            toggle_wifi(False)
-        else:
-            print("Wrong parameter 0=disable 1=enable !!!")
-    else:
-        print("Parameter missing !!!")
+    parser = argparse.ArgumentParser(description="Connect Box WiFi configuration")
+
+    parser.add_argument("ip", help="ConnectBox ip",
+                        type=str)
+    parser.add_argument("password", help="ConnectBox password",
+                        type=str)
+    parser.add_argument("enableWifi", help="Enable WiFi", type=int)
+
+    args, unknown = parser.parse_known_args()
+
+    toggle_wifi(args.ip, args.password, args.enableWifi == 1)

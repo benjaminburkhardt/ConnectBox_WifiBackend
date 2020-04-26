@@ -11,20 +11,20 @@ with open(os.path.join(here, "README.md"), "rb") as f:
 
 
 setup(
-    name="compal",
-    version="0.2.0",
-    author="Ties de Kock",
-    author_email="ties@tiesdekock.nl",
-    description="Compal CH7465LG/Ziggo Connect Box client",
+    name="connectBoxWifi",
+    version="1.0",
+    author="Benjamin Burkhardt",
+    author_email="-",
+    description="ConnectBox Wifi Toggler",
     long_description_content_type="text/markdown",
     long_description=long_descr,
-    url="https://github.com/ties/compal_CH7465LG_py",
+    url="https://github.com/benjaminburkhardt/compal_CH7465LG_py",
     entry_points={},
     install_requires=["requests", "lxml"],
     include_package_data=True,
     python_requires=">=3.7",
     license="MIT",
-    keywords="compal CH7465LG connect box cablemodem",
+    keywords="unitymedia connectbox wifi connect box cablemodem",
     packages=find_packages(exclude=["examples", "tests", "tests.*"]),
     classifiers=[
         "Development Status :: 5 - Production/Stable",
