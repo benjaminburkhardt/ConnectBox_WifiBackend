@@ -57,8 +57,8 @@ def toggle_wifi(ip, password, enableWifi):
 
     modem.logout()
 
-def switch_wifi():
-    modem = Compal(config.host, config.interface_passwd)
+def switch_wifi(ip, password):
+    modem = Compal(ip, password)
     modem.login()
 
     # And/or change wifi settings
@@ -82,9 +82,9 @@ def switch_wifi():
     modem.logout()
 
     if settings.radio_2g.bss_enable == 1:
-        return "WIFI is now ON!"
+        return "WIFI ("+ wifi.wifi_settings.radio_2g.ssid + ") is now ON!"
     elif settings.radio_2g.bss_enable == 2:
-        return "WIFI is now OFF!"
+        return "WIFI ("+ wifi.wifi_settings.radio_2g.ssid + ") is now OFF!"
     else:
         return "ERROR! Something went wrong... :("
 
