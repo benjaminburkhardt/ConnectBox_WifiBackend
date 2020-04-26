@@ -49,9 +49,9 @@ def toggle_wifi(ip, password, enableWifi):
 
     # pprint.pprint(settings)
     if enableWifi and settings.radio_2g.bss_enable == 1:
-        print("\nWIFI is now ON!")
+        print("WIFI (" + str(wifi.wifi_settings.radio_2g.ssid) + ") is now ON!")
     elif not enableWifi and settings.radio_2g.bss_enable == 2:
-        print("\nWIFI is now OFF!")
+        print("WIFI (" + str(wifi.wifi_settings.radio_2g.ssid) + ") is now OFF!")
     else:
         print("\nERROR! Something went wrong... :(")
 
@@ -82,9 +82,9 @@ def switch_wifi(ip, password):
     modem.logout()
 
     if settings.radio_2g.bss_enable == 1:
-        return "WIFI ("+ wifi.wifi_settings.radio_2g.ssid + ") is now ON!"
+        return "WIFI ("+ str(wifi.wifi_settings.radio_2g.ssid) + ") is now ON!"
     elif settings.radio_2g.bss_enable == 2:
-        return "WIFI ("+ wifi.wifi_settings.radio_2g.ssid + ") is now OFF!"
+        return "WIFI ("+ str(wifi.wifi_settings.radio_2g.ssid) + ") is now OFF!"
     else:
         return "ERROR! Something went wrong... :("
 
