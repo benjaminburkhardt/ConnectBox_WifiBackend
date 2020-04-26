@@ -13,7 +13,7 @@ Or
 
 1. Install project and dependencies on Raspberry Pi
 2. Set your Connectbox ip and password in config.py
-3. User Siri Shortcut for iOS to toggle Wifi: https://www.icloud.com/shortcuts/436cf7b5e1a14bcfa8709561b4406595
+3. User Siri Shortcut for iOS to toggle Wifi: https://shortcutsgallery.com/shortcuts/unitymedia-connect-box-wifi-toggle/
 
 Development
 -----------
