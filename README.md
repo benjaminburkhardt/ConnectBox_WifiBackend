@@ -3,25 +3,51 @@ Unitymedia Connect box (Compal CH7465LG) Wifi Enabler / Disabler
 
 With this project I want to toggle the 2.4 Ghz Wifi of my Connect box with ease.
 
-Usage
+Setup
 -----
 
-Set the ip to the connect box and the password in config.py
-The file ``toggle-wifi.py`` contains the code to toggle the 2.4ghz wifi signal.
 
-Or
+1. Clone & install project and dependencies somewhere eg. on a Raspberry Pi
+2. Run the flask server by running ``python3 api.py``
+3. Access the flask api service via:
+    - Check if Wi-Fi is enabled: ``/wifi/status?ip=<connectbox-ip>&password=<connectbox-pw>``
+    - Enable Wi-Fi: ``/wifi/on?ip=<connectbox-ip>&password=<connectbox-pw>``
+    - Disable Wi-Fi: ``/wifi/off?ip=<connectbox-ip>&password=<connectbox-pw>``
+4. [OPTIONAL] Create a Siri Shourtcut to run it.
+5. [OPTIONAL] Create a service to run the flask server on startup:
 
-1. Install project and dependencies on Raspberry Pi
-2. Set your Connectbox ip and password in config.py
-3. User Siri Shortcut for iOS to toggle Wifi: https://shortcutsgallery.com/shortcuts/unitymedia-connect-box-wifi-toggle/
+a) Create service file:
+```bash
+    sudo vi /lib/systemd/system/flask.service
+```
 
-Development
------------
+b) Add this to the new service file:
+```text
+ [Unit]
+ Description=Flask Unitymedia Server
+ After=multi-user.target
 
-For development is recommended to use a ``venv``.
+ [Service]
+ Type=idle
+ ExecStart=/usr/bin/python3 /home/<your-user>/compal_CH7465LG_py/api.py > /home/<your-user>/flask.log 2>&1
 
-.. code:: bash
+ [Install]
+ WantedBy=multi-user.target
+```
 
-    $ python3 -m venv .
-    $ source bin/activate
-    $ python3 setup.py develop
+c) Adjust file permissions:
+```bash
+sudo chmod 644 /lib/systemd/system/flask.servic
+```
+
+d) Reload and enable service:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable flask.service
+```
+
+e) Reboot
+```bash
+sudo reboot
+```
+
