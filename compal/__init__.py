@@ -70,7 +70,7 @@ class Compal:
             self.key = new_key
 
         if not self.key:
-            raise ValueError("No key/password availalbe")
+            raise ValueError("No key/password available")
 
         self.xml_getter(GetFunction.MULTILANG, {})
         self.xml_getter(GetFunction.LANGSETLIST, {})
@@ -135,6 +135,7 @@ class Compal:
         data.update(_data)
 
         LOGGER.debug("POST [%s]: %s", path, data)
+
 
         res = self.session.post(
             self.url(path),
@@ -244,6 +245,7 @@ class Compal:
         Logout of the router. This is required since only a single session can
         be active at any point in time.
         """
+        print("Logout")
         return self.xml_setter(SetFunction.LOGOUT, {})
 
     def set_modem_mode(self):

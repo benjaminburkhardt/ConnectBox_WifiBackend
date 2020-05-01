@@ -8,16 +8,22 @@ import argparse
 import os
 import pprint
 import sys
+import threading
+
 
 from compal import (Compal,  # noqa
                     WifiSettings)
+
+lock = threading.Lock()
 
 
 # Push the parent directory onto PYTHONPATH before compal module is imported
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
+
 def change_wifi_to(ip, password, enableWifi):
+    lock.acquire()
     modem = Compal(ip, password)
     modem.login()
 
@@ -31,7 +37,8 @@ def change_wifi_to(ip, password, enableWifi):
             settings.radio_2g.bss_enable = 1
         else:
             modem.logout()
-            return "WIFI (" + str(wifi.wifi_settings.radio_2g.ssid) + ") was already ON"
+            lock.release()
+            return "WIFI was already ON"
 
     if not enableWifi:
         if settings.radio_2g.bss_enable == 1:
@@ -39,7 +46,8 @@ def change_wifi_to(ip, password, enableWifi):
             settings.radio_2g.bss_enable = 2
         else:
             modem.logout()
-            return "WIFI (" + str(wifi.wifi_settings.radio_2g.ssid) + ") was already OFF"
+            lock.release()
+            return "WIFI was already OFF"
 
     wifi.update_wifi_settings(settings, False)
 
@@ -55,6 +63,7 @@ def change_wifi_to(ip, password, enableWifi):
         to_return = "\nERROR! Something went wrong... :("
 
     modem.logout()
+    lock.release()
     return to_return
 
 def toggle_wifi(ip, password):
