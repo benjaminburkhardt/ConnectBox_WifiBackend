@@ -108,15 +108,14 @@ def wifi_enabled(ip, password):
 
 
 if __name__ == "__main__":
-    print("Disabled...")
-    # parser = argparse.ArgumentParser(description="Connect Box WiFi configuration")
-    #
-    # parser.add_argument("ip", help="ConnectBox ip",
-    #                     type=str)
-    # parser.add_argument("password", help="ConnectBox password",
-    #                     type=str)
-    # parser.add_argument("enableWifi", help="Enable WiFi", type=int)
-    #
-    # args, unknown = parser.parse_known_args()
-    #
-    # change_wifi_to(args.ip, args.password, args.enableWifi == 1)
+    parser = argparse.ArgumentParser(description="Connect Box WiFi configuration")
+
+    parser.add_argument("ip", help="ConnectBox ip",
+                        type=str)
+    parser.add_argument("password", help="ConnectBox password",
+                        type=str)
+    parser.add_argument("enableWifi", help="Enable WiFi", type=int)
+
+    args, unknown = parser.parse_known_args()
+
+    change_wifi_to(args.ip, args.password, args.enableWifi == 1)
